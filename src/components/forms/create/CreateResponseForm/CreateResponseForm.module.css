@@ -1,0 +1,50 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 16px;
+  background-color: var(--neutral);
+  box-shadow: 8px 8px 4px rgba(0, 0, 0, .25);
+
+  @media (min-width: 1025px) { /* Laptop+ */ 
+    padding: 32px;
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--neutralContent);
+  font-family: 'Play', sans-serif;
+  font-size: 1.5rem;
+}
+
+.houseIcon {
+  width: 70px;
+  margin-top: 12px;
+
+  @media (min-width: 1025px) { /* Laptop+ */ 
+    width: 100px;
+  }
+}
+
+.completeForm {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(480px, -90px);
+}
+
+.allDone {
+  margin-right: auto;
+  width: fit-content;
+  transform: translateY(10px);
+
+  @media (min-width: 1920px) { /* Desktop */ 
+    transform: translate(-80px, 10px);
+  }
+}

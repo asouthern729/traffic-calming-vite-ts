@@ -1,0 +1,12 @@
+.label {
+  color: var(--neutralContent);
+  font-family: 'Play', sans-serif;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .25rem;
+  line-height: 1.25rem;
+
+  @media (min-width: 1025px) { /* Laptop+ */
+    font-size: 1.25rem;
+  }
+}
