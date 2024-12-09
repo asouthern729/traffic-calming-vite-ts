@@ -1,0 +1,15 @@
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--neutral);
+  padding: 24px 0 12px 0;
+}
+
+.label {
+  color: var(--neutralContent);
+  font-family: 'Jura', sans-serif;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 8px;
+}

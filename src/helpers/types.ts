@@ -1,6 +1,7 @@
 // Types
 import { Dispatch, SetStateAction } from 'react'
 import { UpdateRespondentFormUseForm } from '../components/forms/update/UpdateRespondentForm/types'
+import { NewAttachmentState } from '../components/attachments/NewAttachment/types'
 import { ServerResponse } from '../context/App/types'
 
 export interface HandleSuccessfulFormSubmitProps { // handleSuccessfulFormSubmit fn props
@@ -27,4 +28,12 @@ export interface HandleDeleteBtnClickProps { // handleDeleteBtn fn props
 export interface UseHandlePageData { // useHandlePageData hook props
   data: UpdateRespondentFormUseForm[]
   currentPage: number
+}
+
+export interface SetBlobURLProps { // setBlobURL fn props
+  buffer: ArrayBuffer
+  type: string
+  options: {
+    setState: Dispatch<SetStateAction<NewAttachmentState>>
+  }
 }

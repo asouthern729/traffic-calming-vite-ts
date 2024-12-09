@@ -18,7 +18,9 @@ export const setPetitionsContainer = (petitions: SetPetitionsContainerProps['pet
             petition={petition} />
         )
       }
-    } else return (
+    }
+
+    return (
       <PetitionContainer 
         key={`petition-container-${ petition.petitionId }`}
         petition={petition} />

@@ -1,12 +1,16 @@
+@import '../../../../animations.css';
+
 .container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  font-family: 'Play', sans-serif;
   padding: 16px;
   background-color: var(--neutral);
   box-shadow: 8px 8px 4px rgba(0, 0, 0, .25);
+  overflow: hidden;
+  animation: 250ms fade-in-bottom linear;
 
   @media (min-width: 1025px) { /* Laptop+ */ 
     padding: 32px;
@@ -21,6 +25,8 @@
   color: var(--neutralContent);
   font-family: 'Play', sans-serif;
   font-size: 1.5rem;
+  padding-bottom: 24px;
+  width: 100%;
 }
 
 .houseIcon {
@@ -32,19 +38,18 @@
   }
 }
 
-.completeForm {
+.cofIcon {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(480px, -90px);
-}
+  top: -25%;
+  right: -25%;
+  height: 600px;
+  pointer-events: none;
+  opacity: .6;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 
-.allDone {
-  margin-right: auto;
-  width: fit-content;
-  transform: translateY(10px);
-
-  @media (min-width: 1920px) { /* Desktop */ 
-    transform: translate(-80px, 10px);
+  @media (min-width: 1025px) and (max-width: 1919px) { /* Laptop */ 
+    top: -20%;
+    right: -20%;
   }
 }

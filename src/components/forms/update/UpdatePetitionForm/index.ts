@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
-import { createRespondents, deletePetition, updatePetition, updateRespondent } from "../../../../context/App/AppActions"
+import { createRespondents, deletePetition, updatePetition, updateRespondent, createAttachment } from "../../../../context/App/AppActions"
 import { handleSuccessfulFormSubmit } from "../../../../helpers"
 import { savedPopup, errorPopup } from "../../../../utils/Toast/Toast"
 
@@ -19,6 +19,7 @@ export const useUpdatePetitionForm = (petition: UseUpdatePetitionFormUseFormProp
       endDate: petition.endDate,
       respondents: setRespondents(petition.Respondents),
       newRespondents: [],
+      attachment: petition.PetitionAttachment,
       uuid: petition.uuid
     }
   })
@@ -59,6 +60,19 @@ export const handleUpdatePetitionFormSubmit = async (formData: HandleUpdatePetit
   const result = await updatePetition(petitionObj)
 
   if(result.success) {
+    if(formData.attachment instanceof File) { // Handle file upload
+      const attachmentForm = new FormData()
+
+      attachmentForm.append("file", formData.attachment)
+      attachmentForm.append("parentId", formData.uuid)
+
+      const attachmentResult = await createAttachment(attachmentForm)
+
+      if(!attachmentResult.success) {
+        errorPopup(attachmentResult.msg || 'Something Went Wrong')
+      }
+    }
+
     const respondents = formData.respondents
 
     Promise.all( // Update dirtied existing respondents

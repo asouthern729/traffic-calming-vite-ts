@@ -1,0 +1,10 @@
+@import '../../../animations.css';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+  width: 50%;
+  animation: 250ms fade-in linear;
+}

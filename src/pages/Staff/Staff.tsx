@@ -8,11 +8,11 @@ import PetitionsContainer from "../../components/containers/PetitionsContainer/P
 import ErrorBoundary from "../../components/error/ErrorBoundary/ErrorBoundary"
 
 function Staff() {
-  useValidateUser()
+  const validated = useValidateUser()
 
   useHandlePageLoad()
 
-  const { data, isSuccess } = useGetPetitions()
+  const { data, isSuccess } = useGetPetitions(validated)
 
   return (
     <Layout>

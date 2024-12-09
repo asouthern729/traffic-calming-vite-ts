@@ -1,7 +1,7 @@
 // Types
 import { Dispatch, SetStateAction } from "react"
 import { UseFormReturn, FieldArrayWithId, UseFieldArrayRemove, UseFieldArrayAppend } from "react-hook-form"
-import { Petition } from "../../../../context/App/types"
+import { Petition, PetitionAttachment } from "../../../../context/App/types"
 import { CreateRespondentFormUseForm } from "../../create/CreateRespondentForm/types"
 import { UpdateRespondentFormUseForm } from "../UpdateRespondentForm/types"
 
@@ -21,6 +21,7 @@ export interface UpdatePetitionFormUseForm { // UpdatePetitionForm useForm
   endDate: string
   respondents: UpdateRespondentFormUseForm[]
   newRespondents: CreateRespondentFormUseForm[]
+  attachment: PetitionAttachment | File | null
   readonly uuid: string
 }
 

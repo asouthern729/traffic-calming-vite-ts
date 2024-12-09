@@ -55,14 +55,23 @@ export interface SearchByADDRKEYResponse extends ServerResponse {
   data: RespondentObj[]
 }
 
-export interface PetitionObj { // Petition obj for POST / PUT
+export interface GetAttachmentResponse extends ServerResponse { 
+  data: {
+    data: {
+      type: string
+      data: ArrayBuffer
+    } 
+  } & PetitionAttachment
+}
+
+export interface PetitionObj {
   description: string
   startDate: string
   endDate: string
   uuid?: string
 }
 
-export interface RespondentObj { // Respondent obj for POST / PUT
+export interface RespondentObj {
   name: string | null
   address: string
   ownerAddress: string | null
@@ -73,7 +82,7 @@ export interface RespondentObj { // Respondent obj for POST / PUT
   uuid?: string
 }
 
-export interface ResponseObj { // Response obj for 
+export interface ResponseObj {
   response: boolean
   parentId: string
   uuid?: string
@@ -85,6 +94,7 @@ export interface Petition extends BaseObj {
   startDate: string
   endDate: string
   Respondents: Respondent[]
+  PetitionAttachment: PetitionAttachment
 }
 
 export interface Respondent extends BaseObj {
@@ -104,6 +114,11 @@ export interface Response extends BaseObj {
   response: boolean
   parentId: string
   uuid: string
+}
+
+export interface PetitionAttachment extends BaseObj {
+  parentId: string
+  fileType: 'pdf' | 'jpeg'
 }
 
 export type AppAction =

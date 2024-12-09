@@ -12,6 +12,7 @@ import { UpdatePetitionFormProps, UpdatePetitionFormState } from "./types"
 // Components
 import FormLabel from "../../FormLabel/FormLabel"
 import FormError from "../../FormError/FormError"
+import AttachmentContainer from "../../../containers/AttachmentContainer/AttachmentContainer"
 import RespondentsContainer from "../../../containers/RespondentsContainer/RespondentsContainer"
 import SaveBtn from "../../../buttons/forms/SaveBtn/SaveBtn"
 import CancelBtn from "../../../buttons/forms/CancelBtn/CancelBtn"
@@ -75,6 +76,10 @@ function UpdatePetitionForm({ petition, handleCancelBtnClick }: UpdatePetitionFo
                   onBlur: () => methods.trigger('endDate')
                 }) } />
             </div>
+          </div>
+
+          <div className="pt-12">
+            <AttachmentContainer /> 
           </div>
           
           <div className="flex flex-col gap-10 py-10">

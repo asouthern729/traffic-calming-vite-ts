@@ -2,12 +2,12 @@ import { API_URL as baseUrl } from '../../config'
 
 // Types
 import { CreateResponseFormUseForm } from '../../components/forms/create/CreateResponseForm/types'
-import { GetPetitionsResponse, GetPetitionResponse, CreatePetitionResponse, VerifyRespondentResponse, CreateResponseResponse, SearchByADDRKEYResponse, ServerResponse, PetitionObj, RespondentObj } from './types'
+import { GetPetitionsResponse, GetPetitionResponse, CreatePetitionResponse, VerifyRespondentResponse, CreateResponseResponse, SearchByADDRKEYResponse, ServerResponse, PetitionObj, RespondentObj, GetAttachmentResponse } from './types'
 
 // Get petitions
 // GET /api/v1/eng/traffic-calming/petition
 export const getPetitions = async (): Promise<GetPetitionsResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/petition`)
+  const res = await fetch(`${ baseUrl }/petition`)
 
   return res.json()
 }
@@ -15,7 +15,7 @@ export const getPetitions = async (): Promise<GetPetitionsResponse> => {
 // Get petition
 // GET /api/v1/eng/traffic-calming/petition/:uuid
 export const getPetition = async (uuid: string): Promise<GetPetitionResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/petition/${ uuid }`)
+  const res = await fetch(`${ baseUrl }/petition/${ uuid }`)
 
   return await res.json()
 }
@@ -23,7 +23,7 @@ export const getPetition = async (uuid: string): Promise<GetPetitionResponse> =>
 // Create petition
 // POST /api/v1/eng/traffic-calming/petition
 export const createPetition = async (formData: PetitionObj): Promise<CreatePetitionResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/petition`, {
+  const res = await fetch(`${ baseUrl }/petition`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ export const createPetition = async (formData: PetitionObj): Promise<CreatePetit
 // Update peition
 // PUST /api/v1/eng/traffi-calming/petition/:uuid
 export const updatePetition = async (formData: PetitionObj): Promise<ServerResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/petition/${ formData.uuid }`, {
+  const res = await fetch(`${ baseUrl }/petition/${ formData.uuid }`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -51,7 +51,7 @@ export const updatePetition = async (formData: PetitionObj): Promise<ServerRespo
 // Delete petition
 // DELETE /api/v1/eng/traffic-calming/petition/:uuid
 export const deletePetition = async (uuid: string): Promise<ServerResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/petition/${ uuid }`, {
+  const res = await fetch(`${ baseUrl }/petition/${ uuid }`, {
     method: 'DELETE'
   })
 
@@ -61,9 +61,7 @@ export const deletePetition = async (uuid: string): Promise<ServerResponse> => {
 // Create respondent
 // POST /api/v1/eng/traffic-calming/respondent
 export const createRespondents = async (newRespondents: RespondentObj[]): Promise<ServerResponse> => {
-  console.log(newRespondents)
-
-  const res = await fetch(`${ baseUrl }/traffic-calming/respondent`, {
+  const res = await fetch(`${ baseUrl }/respondent`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -77,7 +75,7 @@ export const createRespondents = async (newRespondents: RespondentObj[]): Promis
 // Update respondent
 // PUT /api/v1/eng/traffic-calming/respondent/:uuid
 export const updateRespondent = async (formData: RespondentObj): Promise<ServerResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/respondent/${ formData.uuid }`, {
+  const res = await fetch(`${ baseUrl }/respondent/${ formData.uuid }`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'
@@ -91,7 +89,7 @@ export const updateRespondent = async (formData: RespondentObj): Promise<ServerR
 // Delete respondent
 // DELETE /api/v1/eng/traffic-calming/respondent/:uuid
 export const deleteRespondent = async (uuid: string): Promise<ServerResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/respondent/${ uuid }`, {
+  const res = await fetch(`${ baseUrl }/respondent/${ uuid }`, {
     method: 'DELETE'
   })
 
@@ -101,7 +99,7 @@ export const deleteRespondent = async (uuid: string): Promise<ServerResponse> =>
 // Verify respondent
 // GET /api/v1/eng/traffic-calming/respondent/id/:shortId
 export const verifyRespondent = async (shortId: string): Promise<VerifyRespondentResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/respondent/id/${ shortId }`)
+  const res = await fetch(`${ baseUrl }/respondent/id/${ shortId }`)
 
   return res.json()
 }
@@ -109,7 +107,7 @@ export const verifyRespondent = async (shortId: string): Promise<VerifyResponden
 // Search addresses by ADDRKEY
 // POST /api/v1/eng/traffic-calming/respondent/search
 export const searchByADDRKEY = async (addrkeys: string[]): Promise<SearchByADDRKEYResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/respondent/search`, {
+  const res = await fetch(`${ baseUrl }/respondent/search`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -123,7 +121,7 @@ export const searchByADDRKEY = async (addrkeys: string[]): Promise<SearchByADDRK
 // Create response
 // POST /api/v1/eng/traffic-calming/response
 export const createResponse = async (formData: CreateResponseFormUseForm): Promise<CreateResponseResponse> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/response`, {
+  const res = await fetch(`${ baseUrl }/response`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -137,7 +135,7 @@ export const createResponse = async (formData: CreateResponseFormUseForm): Promi
 // Download template
 // POST /api/v1/eng/traffic-calming/respondent/template
 export const downloadRespondentTemplate = async (): Promise<void> => {
-  const res = await fetch(`${ baseUrl }/traffic-calming/respondent/template`, {
+  const res = await fetch(`${ baseUrl }/respondent/template`, {
     method: 'POST'
   })
 
@@ -154,4 +152,33 @@ export const downloadRespondentTemplate = async (): Promise<void> => {
 
   document.body.removeChild(attachment)
   window.URL.revokeObjectURL(url)
+}
+
+// Create attachment
+// POST /api/v1/eng/traffic-calming/attachment
+export const createAttachment = async (formData: FormData): Promise<ServerResponse> => {
+  const res = await fetch(`${ baseUrl }/attachment`, {
+    method: 'POST',
+    body: formData
+  })
+
+  return await res.json()
+}
+
+// Delete attachment
+// DELETE /api/v2/dept-purchasing/attachment/:uuid
+export const deleteAttachment = async (uuid: string): Promise<ServerResponse> => {
+  const res = await fetch(`${ baseUrl }/attachment/${ uuid }`, {
+    method: 'DELETE'
+  })
+
+  return await res.json()
+}
+
+// Download attachment
+// GET /api/v1/eng/traffic-calming/attachment/:uuid
+export const getAttachment = async (uuid: string): Promise<GetAttachmentResponse> => {
+  const res = await fetch(`${ baseUrl }/attachment/${ uuid }`)
+
+  return await res.json()
 }

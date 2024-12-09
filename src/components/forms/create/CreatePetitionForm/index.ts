@@ -1,7 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form"
 import { v4 as uuidv4 } from 'uuid'
 import { handleSuccessfulFormSubmit } from "../../../../helpers"
-import { createPetition, createRespondents } from "../../../../context/App/AppActions"
+import { createPetition, createRespondents, createAttachment } from "../../../../context/App/AppActions"
 import { errorPopup } from "../../../../utils/Toast/Toast"
 
 // Types
@@ -42,6 +42,19 @@ export const handleSubmitCreatePetitionForm = async (formData: HandleSubmitCreat
   const result = await createPetition(petitionObj)
 
   if(result.success) {
+    if(formData.attachment) { // Handle attachment upload
+      const attachmentForm = new FormData()
+
+      attachmentForm.append("file", formData.attachment)
+      attachmentForm.append("parentId", result.data.uuid)
+
+      const attachmentResult = await createAttachment(attachmentForm)
+
+      if(!attachmentResult.success) {
+        errorPopup(attachmentResult.msg || 'Something Went Wrong')
+      }
+    }
+
     const newRespondentsArray = formData.newRespondents.map(respondent => {
       const obj: RespondentObj = {
         name: respondent.name,

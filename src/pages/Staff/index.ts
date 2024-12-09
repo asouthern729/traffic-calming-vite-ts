@@ -5,6 +5,6 @@ import { getPetitions } from "../../context/App/AppActions"
 import { UseQueryResult } from "react-query"
 import { GetPetitionsResponse } from "../../context/App/types"
 
-export const useGetPetitions = (): UseQueryResult<GetPetitionsResponse> => { // Get peitions
-  return useQuery('getPetitions', () => getPetitions())
+export const useGetPetitions = (validated: boolean): UseQueryResult<GetPetitionsResponse> => { // Get peitions
+  return useQuery('getPetitions', () => getPetitions(), { enabled: validated })
 }

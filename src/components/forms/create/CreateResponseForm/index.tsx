@@ -1,12 +1,13 @@
+import { useEffect, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { handleSuccessfulFormSubmit } from "../../../../helpers"
-import { createResponse } from "../../../../context/App/AppActions"
+import { createResponse, getAttachment } from "../../../../context/App/AppActions"
+import { errorPopup } from "../../../../utils/Toast/Toast"
 
 // Types
 import { UseFormReturn } from "react-hook-form"
 import { VoteBtnProps } from "../../../buttons/forms/VoteBtn/types"
-import { UseCreateResponseFormProps, CreateResponseFormUseForm, SetVoteBtnProps, HandleVoteBtnClickProps } from "./types"
-import { errorPopup } from "../../../../utils/Toast/Toast"
+import { UseCreateResponseFormProps, UseGetAttachmentProps, CreateResponseFormUseForm, SetVoteBtnProps, HandleVoteBtnClickProps, AttachmentState } from "./types"
 
 export const useCreateResponseForm = (respondent: UseCreateResponseFormProps['respondent']): UseFormReturn<CreateResponseFormUseForm> => { // CreateResponseForm useForm
   return useForm<CreateResponseFormUseForm>({
@@ -16,6 +17,45 @@ export const useCreateResponseForm = (respondent: UseCreateResponseFormProps['re
       shortId: respondent.shortId 
     }
   })
+}
+
+export const useGetAttachment = (uuid: UseGetAttachmentProps['uuid'], options: UseGetAttachmentProps['options']): void => { // Download attachment - set blobURL to state
+  const { setAttachment } = options
+
+  let blobURL: string | undefined
+
+  const cb = useCallback(async () => {
+    if(uuid) {
+      const result = await getAttachment(uuid)
+
+      if(result.success) {
+        const buffer = result.data.data.data
+        const bufferView = new Uint8Array(buffer)
+        const type = result.data.fileType === 'jpeg' ? 'image/jpeg' : 'application/pdf'
+
+        const blob = new Blob([bufferView], { type })
+        blobURL = URL.createObjectURL(blob)
+
+        return setAttachment({ blobURL, type })
+      }
+    }
+  }, [uuid, setAttachment])
+
+  useEffect(() => {
+    cb()
+
+    return () => {
+      if(blobURL) {
+        URL.revokeObjectURL(blobURL)
+      }
+    }
+  }, [cb])
+}
+
+export const SetAttachment = ({ blobURL, type }: AttachmentState) => { // Set attachment
+  const element = type === 'image/jpeg' ? <a href={blobURL} target="_blank" title={'Open attachment in new tab'}><img src={blobURL} alt="petition attachment" /></a> : <a href={blobURL} target="_blank" className="btn btn-outline btn-info uppercase">Click To View Attachment</a>
+
+  return element
 }
 
 export const setVoteBtnProps = (type: SetVoteBtnProps['type'], state: SetVoteBtnProps['state'], options: SetVoteBtnProps['options']): VoteBtnProps => { // Vote yes and vote no btn props

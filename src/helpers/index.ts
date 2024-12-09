@@ -11,7 +11,7 @@ import { UseQueryResult } from "react-query"
 import { Page } from "../context/App/types"
 import { ValidateTokenResponse } from "../context/User/types"
 import { UpdateRespondentFormUseForm } from "../components/forms/update/UpdateRespondentForm/types"
-import { UseHandlePageData, HandleSuccessfulFormSubmitProps, HandleDeleteBtnClickProps } from "./types"
+import { UseHandlePageData, HandleSuccessfulFormSubmitProps, HandleDeleteBtnClickProps, SetBlobURLProps } from "./types"
 
 export const useValidateUser = (): boolean => { // Validate user
   const { dispatch } = useContext(UserContext)
@@ -134,6 +134,17 @@ export const handleDeleteBtnClick = async (uuid: HandleDeleteBtnClickProps['uuid
       handleSuccessfulFormSubmit(result.msg as string, { invalidateQuery, resetState })
     } else errorPopup(result.msg)
   }
+}
+
+export const setBlobURL = (buffer: SetBlobURLProps['buffer'], type: SetBlobURLProps['type'], options: SetBlobURLProps['options']): void => {
+  const { setState } = options
+  
+  const bufferView = new Uint8Array(buffer)
+
+  const blob = new Blob([bufferView], { type })
+  const blobURL = URL.createObjectURL(blob)
+
+  setState(prevState => ({ ...prevState, blobURL }))
 }
 
 const useValidateToken = (): UseQueryResult<ValidateTokenResponse> => { // Handle token validation

@@ -12,7 +12,7 @@ function VoteBtn({ label, type, handleClick, active }: VoteBtnProps) {
       type="button"
       className={`btn py-2 h-fit w-full ${ type === 'VoteYes' ? 'btn-success' : 'btn-error' } ${ active ? 'animate-pulse' : null }`}
       onClick={handleClick}>
-        <div className="flex flex-col gap-3 items-center">
+        <div className="flex flex-col gap-1 items-center lg:gap-2">
           <img src={type === 'VoteYes' ? yesIcon : noIcon} alt="vote icon" className="w-10 lg:w-14" />
           <div className={styles.label}>{label}</div>
         </div>

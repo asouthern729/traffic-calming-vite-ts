@@ -11,6 +11,7 @@ export interface CreatePetitionFormUseForm { // CreatePetitionForm useForm
   startDate: string
   endDate: string
   newRespondents: CreateRespondentFormUseForm[]
+  attachment: File | null
   uuid: string
 }
 

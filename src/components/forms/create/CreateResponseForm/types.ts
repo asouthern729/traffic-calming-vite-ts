@@ -12,6 +12,11 @@ export interface CreateResponseFormState { // CreateResponseForm state obj
   voteNoBtnActive: boolean
 }
 
+export interface AttachmentState { // CreateResponseForm attachment state
+  blobURL: string | undefined
+  type: 'image/jpeg' | 'application/pdf' | null
+}
+
 export interface CreateResponseFormUseForm { // CreateResponseForm useForm
   response: boolean | null
   parentId: string
@@ -20,6 +25,13 @@ export interface CreateResponseFormUseForm { // CreateResponseForm useForm
 
 export interface UseCreateResponseFormProps { // useCreateResponseForm hook props
   respondent: Respondent
+}
+
+export interface UseGetAttachmentProps { // useGetAttachment hook props
+  uuid: string
+  options: {
+    setAttachment: Dispatch<SetStateAction<AttachmentState>>
+  }
 }
 
 export interface SetVoteBtnProps { // setVoteBtnProps fn props
