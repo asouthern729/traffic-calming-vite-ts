@@ -1,5 +1,5 @@
 import icon from '../../../assets/icons/cof/cof.png'
-import { useRedirect } from "."
+import { useRedirect } from "./hooks.ts"
 
 // Types
 import { ClosedPetitionProps } from './types.ts'

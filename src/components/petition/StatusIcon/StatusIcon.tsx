@@ -1,13 +1,15 @@
-import { setStatusIcon } from "."
-
 // Types
 import { StatusIconProps } from "./types"
 
+// Components
+import { Icon } from "./components"
+
 function StatusIcon({ start, end }: StatusIconProps) {
+  
   return (
-    <>
-      {setStatusIcon(start, end)}
-    </>
+    <Icon 
+      start={start}
+      end={end} />
   )
 }
 

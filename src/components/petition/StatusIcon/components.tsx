@@ -4,10 +4,9 @@ import lockedIconRed from '../../../assets/icons/locked/locked-red.svg'
 import unlockedIcon from '../../../assets/icons/unlocked/unlocked-green.svg'
 
 // Types
-import { ReactElement } from "react"
 import { SetStatusIconProps } from "./types"
 
-export const setStatusIcon = (start: SetStatusIconProps['start'], end: SetStatusIconProps['end']): ReactElement => {
+export const Icon = ({ start, end }: SetStatusIconProps) => { // Status icon
   const today = new Date()
   const startDate = new Date(start)
   const endDate = new Date(end)

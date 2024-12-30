@@ -30,7 +30,7 @@ export interface UseCreateResponseFormProps { // useCreateResponseForm hook prop
 export interface UseGetAttachmentProps { // useGetAttachment hook props
   uuid: string
   options: {
-    setAttachment: Dispatch<SetStateAction<AttachmentState>>
+    setState: Dispatch<SetStateAction<AttachmentState>>
   }
 }
 

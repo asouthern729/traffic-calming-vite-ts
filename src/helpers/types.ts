@@ -1,7 +1,7 @@
 // Types
 import { Dispatch, SetStateAction } from 'react'
 import { UpdateRespondentFormUseForm } from '../components/forms/update/UpdateRespondentForm/types'
-import { NewAttachmentState } from '../components/attachments/NewAttachment/types'
+import { AttachmentContainerState } from '../components/containers/AttachmentContainer/types'
 import { ServerResponse } from '../context/App/types'
 
 export interface HandleSuccessfulFormSubmitProps { // handleSuccessfulFormSubmit fn props
@@ -34,6 +34,6 @@ export interface SetBlobURLProps { // setBlobURL fn props
   buffer: ArrayBuffer
   type: string
   options: {
-    setState: Dispatch<SetStateAction<NewAttachmentState>>
+    setState: Dispatch<SetStateAction<AttachmentContainerState>>
   }
 }

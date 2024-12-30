@@ -3,7 +3,7 @@ import { QueryClientProvider, QueryClient } from 'react-query'
 import { FormProvider } from 'react-hook-form'
 import { render } from '@testing-library/react'
 import { instance, mock, when } from 'ts-mockito'
-import { useUpdatePetitionForm } from '../../forms/update/UpdatePetitionForm'
+import { useUpdatePetitionForm } from '../../forms/update/UpdatePetitionForm/hooks'
 
 // Types
 import { Petition, Respondent } from '../../../context/App/types'

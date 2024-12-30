@@ -1,6 +1,6 @@
 export const APP_BASE = '/traffic-calming'
 export const APP_TITLE = 'Engineering Dept. Traffic Calming Petitioning'
-// export const API_URL = 'https://apps.franklintn.gov/api/v1/eng'
+// export const API_URL = 'https://apps.franklintn.gov/api/v1/eng/traffic-calming'
 // export const LDAP_URL = 'https://apps.franklintn.gov/api/v1/ldap'
 export const API_URL = 'http://cofasv38/api/v1/eng/traffic-calming'
 export const LDAP_URL = 'http://cofasv38/api/v1/ldap'

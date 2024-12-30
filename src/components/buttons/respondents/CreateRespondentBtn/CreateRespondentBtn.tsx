@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form"
-import { handleCreateBtnClick } from "."
+import { handleCreateBtnClick } from "./utils"
 
 // Types
 import { UpdatePetitionFormUseForm } from "../../../forms/update/UpdatePetitionForm/types"

@@ -1,7 +1,7 @@
 import { BrowserRouter } from 'react-router-dom'
 import { render, screen } from '@testing-library/react'
 import { mock, instance, when } from 'ts-mockito'
-import * as PetitionContainerFns from '.'
+import * as PetitionContainerFns from './utils'
 
 // Types
 import { Petition, Respondent, Response } from '../../../context/App/types'

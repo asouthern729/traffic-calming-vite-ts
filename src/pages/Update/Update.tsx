@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom"
 import { useValidateUser } from "../../helpers"
-import { useGetPetition } from "."
+import { useGetPetition } from "./hooks"
 
 // Types
 import { Petition } from "../../context/App/types"

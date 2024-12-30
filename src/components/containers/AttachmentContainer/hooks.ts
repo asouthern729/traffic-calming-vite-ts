@@ -1,12 +1,11 @@
 import { useCallback, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { getAttachment, deleteAttachment } from '../../../context/App/AppActions'
-import { savedPopup, errorPopup } from '../../../utils/Toast/Toast'
+import { getAttachment } from '../../../context/App/AppActions'
 
 // Types
 import { UpdatePetitionFormUseForm } from '../../forms/update/UpdatePetitionForm/types'
 import { PetitionAttachment } from '../../../context/App/types'
-import { UseSetExistingAttachmentProps, HandleDeleteBtnClickProps } from './types'
+import { UseSetExistingAttachmentProps } from './types'
 
 export const useSetExistingAttachment = async (setState: UseSetExistingAttachmentProps['setState']): Promise<void> => { // Set existing attachment for UpdatePetitionForm
   const methods = useFormContext<UpdatePetitionFormUseForm>()
@@ -37,23 +36,4 @@ export const useSetExistingAttachment = async (setState: UseSetExistingAttachmen
   useEffect(() => {
     cb()
   }, [cb])
-}
-
-export const handleDeleteBtnClick = async (methods: HandleDeleteBtnClickProps['methods']): Promise<void> => { // Handle delete attachment button click
-  let attachment = methods.watch('attachment')
-
-  if(attachment) {
-    if(!(attachment instanceof File)) { // Delete attachment from server
-      attachment = attachment as unknown as PetitionAttachment
-      const result = await deleteAttachment(attachment.uuid)
-  
-      if(!result.success) {
-        return errorPopup(result.msg || 'Something Went Wrong')
-      }
-  
-      savedPopup(result.msg)
-    }
-
-    return methods.setValue('attachment', null, { shouldDirty: true, shouldValidate: true })
-  }
 }

@@ -1,34 +1,10 @@
-import { useFieldArray, useForm } from "react-hook-form"
-import { v4 as uuidv4 } from 'uuid'
 import { handleSuccessfulFormSubmit } from "../../../../helpers"
 import { createPetition, createRespondents, createAttachment } from "../../../../context/App/AppActions"
 import { errorPopup } from "../../../../utils/Toast/Toast"
 
 // Types
 import { PetitionObj, RespondentObj } from "../../../../context/App/types"
-import { CreatePetitionFormUseForm, UseCreatePetitionFormReturn, HandleSubmitCreatePetitionFormProps } from './types'
-
-export const useCreatePetitionForm = (): UseCreatePetitionFormReturn => { // CreatePetitionForm useForm
-  const methods = useForm<CreatePetitionFormUseForm>({
-    defaultValues: {
-      description: '',
-      startDate: '',
-      endDate: '',
-      newRespondents: [],
-      uuid: uuidv4()
-    }
-  })
-
-  const { fields: newRespondents } = useFieldArray({
-    control: methods.control,
-    name: 'newRespondents'
-  })
-
-  return {
-    methods,
-    newRespondents
-  }
-}
+import { HandleSubmitCreatePetitionFormProps } from './types'
 
 export const handleSubmitCreatePetitionForm = async (formData: HandleSubmitCreatePetitionFormProps['formData'], options: HandleSubmitCreatePetitionFormProps['options']): Promise<void> => { // Handle form submit
   const { navigate } = options

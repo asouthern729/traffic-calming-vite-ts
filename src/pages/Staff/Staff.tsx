@@ -1,5 +1,5 @@
 import { useHandlePageLoad, useValidateUser } from "../../helpers"
-import { useGetPetitions } from "."
+import { useGetPetitions } from "./hooks"
 
 // Components
 import Layout from "../../components/layout/Layout/Layout"

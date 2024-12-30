@@ -1,6 +1,6 @@
-import { useState, useRef, useContext } from "react"
-import AppContext from "../../../context/App/AppContext"
-import { useSetRespondents, handlePrevPageBtnClick, handleNextPageBtnClick, setPageData } from "."
+import { useState, useRef } from "react"
+import { useSetRespondents } from "./hooks"
+import { handlePrevPageBtnClick, handleNextPageBtnClick } from './utils'
 
 // Types
 import { RespondentsContainerProps, RespondentsContainerState } from "./types"
@@ -12,11 +12,9 @@ import PageNavBtnsContainer from "../PageNavBtnsContainer/PageNavBtnsContainer"
 import HideResponded from "../../petition/HideResponded/HideResponded"
 import CreateRespondentBtnsContainer from "../CreateRepondentBtnsContainer/CreateRespondentBtnsContainer"
 import BackToTopBtn from "../../buttons/nav/BackToTopBtn/BackToTopBtn"
-import Loading from "../../loading/Loading/Loading"
+import { PageData } from './components'
 
 function RespondentsContainer({ respondents, newRespondents }: RespondentsContainerProps) {
-  const { searchingRespondents } = useContext(AppContext)
-
   const [state, setState] = useState<RespondentsContainerState>({ showContainer: false, currentPage: 1, hideResponded: false })
 
   const topRef = useRef<HTMLDivElement>(null)
@@ -57,14 +55,12 @@ function RespondentsContainer({ respondents, newRespondents }: RespondentsContai
           <HideResponded
             checked={state.hideResponded}
             handleClick={() => setState(prevState => ({ ...prevState, hideResponded: !prevState.hideResponded }))} />
-
-          {searchingRespondents ? ( // Show Loading component when searching
-            <Loading />
-          ):(
-            <>
-              {setPageData(respondents, newRespondents, existingArray, newArray, state.currentPage)}
-            </>
-          )}
+          <PageData
+            respondents={respondents}
+            newRespondents={newRespondents}
+            existingArray={existingArray}
+            newArray={newArray}
+            currentPage={state.currentPage} />
         </div>
 
         <div className="relative flex justify-between items-center">

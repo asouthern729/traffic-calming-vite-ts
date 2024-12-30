@@ -1,7 +1,7 @@
 import { useContext } from "react"
 import { useFormContext } from "react-hook-form"
 import AppContext from "../../../../context/App/AppContext"
-import { handleFileSelect } from "."
+import { handleFileSelect } from "./utils"
 
 // Types
 import { UpdatePetitionFormUseForm } from "../../../forms/update/UpdatePetitionForm/types"

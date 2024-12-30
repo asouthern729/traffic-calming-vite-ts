@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { vi } from 'vitest'
-import * as BackToTopBtnFns from '.'
+import * as BackToTopBtnFns from './utils'
 
 // Components
 import BackToTopBtn from './BackToTopBtn'

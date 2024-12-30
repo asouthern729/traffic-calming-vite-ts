@@ -1,30 +1,14 @@
-import { useQuery } from "react-query"
-import { useSearchParams, useNavigate } from 'react-router-dom'
-import { verifyRespondent } from "../../context/App/AppActions"
+import { useNavigate } from "react-router-dom"
 import { errorPopup } from "../../utils/Toast/Toast"
 
 // Types
-import { ReactElement } from "react"
-import { UseQueryResult } from "react-query"
-import { VerifyRespondentResponse } from "../../context/App/types"
-import { UseVerifyPetitionProps } from "./types"
+import { Respondent } from "../../context/App/types"
 
 // Components
 import ClosedPetition from "../../components/petition/ClosedPetition/ClosedPetition"
 import CreateResponseForm from "../../components/forms/create/CreateResponseForm/CreateResponseForm"
 
-export const useGetRespondent = (): UseQueryResult<VerifyRespondentResponse> => {
-  const [params, _] = useSearchParams()
-
-  const shortId = params.get('shortId')
-
-  return useQuery(['getRespondent', shortId], () => verifyRespondent(shortId as string), { enabled: !!shortId })
-}
-
-export const useVerifyPetition = (respondent: UseVerifyPetitionProps['respondent'], options: UseVerifyPetitionProps['options']): 
-ReactElement | null => { // Verify petition is in open state
-  const { error } = options
-
+export const VerifyRespondent = ({ respondent, error }: { respondent: Respondent | undefined, error: string | undefined }) => { // Verify petition respondent
   const navigate = useNavigate()
 
   if(!respondent && error) { // Handle !respondent / respondent cannot be verified / respondent has already responded

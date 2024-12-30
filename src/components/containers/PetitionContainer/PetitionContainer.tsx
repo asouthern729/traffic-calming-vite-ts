@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { setVoteTotals, setResults } from './index.tsx'
 import styles from './PetitionContainer.module.css'
 
 // Types
@@ -7,16 +6,16 @@ import { PetitionContainerProps } from './types'
 
 // Components
 import StatusIcon from '../../petition/StatusIcon/StatusIcon'
+import { Results } from './components.tsx'
 
 function PetitionContainer({ petition }: PetitionContainerProps) {
-  const votes = setVoteTotals(petition.Respondents)
 
   return (
     <Link
       to={`/update/${ petition.uuid }`}
       className={styles.container}>
 
-      <section className={styles.topDiv}>
+      <div className={styles.topDiv}>
         <div className={styles.title}>Petition {petition.petitionId}</div>
         <div className={styles.dates}>
           <StatusIcon
@@ -33,14 +32,14 @@ function PetitionContainer({ petition }: PetitionContainerProps) {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className={styles.middleDiv}>
+      <div className={styles.middleDiv}>
         <div className={styles.subTitle}>Description</div>
         <p className={styles.description}>{petition.description}</p>
-      </section>
+      </div>
 
-      {setResults(votes)}
+      <Results petition={petition} />
 
     </Link>
   )

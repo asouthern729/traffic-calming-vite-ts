@@ -1,9 +1,10 @@
-import { handleClick } from "."
+import { handleClick } from "./utils"
 
 // Types
 import { BackToTopBtnProps } from "./types"
 
 function BackToTopBtn({ topRef }: BackToTopBtnProps) {
+  
   return (
     <button 
       type="button" 

@@ -1,12 +1,10 @@
 import { useHandlePageLoad } from '../../helpers'
-import { useGetRespondent, useVerifyPetition } from '.'
-
-// Types
-import { Respondent as RespondentType } from '../../context/App/types'
+import { useGetRespondent } from './hooks'
 
 // Components
 import Layout from '../../components/layout/Layout/Layout'
 import HandleLoading from '../../utils/HandleLoading/HandleLoading'
+import { VerifyRespondent } from './components'
 
 function Respondent() {
   const { data, isSuccess } = useGetRespondent()
@@ -16,7 +14,9 @@ function Respondent() {
   return (
     <Layout>
       <HandleLoading isSuccess={isSuccess}>
-        {useVerifyPetition(data?.data as RespondentType || undefined, { error: data?.msg })}
+        <VerifyRespondent
+          respondent={data?.data}
+          error={data?.msg} />
       </HandleLoading>
     </Layout>
   )

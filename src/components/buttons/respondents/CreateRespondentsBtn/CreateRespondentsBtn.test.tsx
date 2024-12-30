@@ -2,8 +2,8 @@ import { FormProvider } from 'react-hook-form'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { vi } from 'vitest'
 import { mock, when, instance } from 'ts-mockito'
-import { useUpdatePetitionForm } from '../../../forms/update/UpdatePetitionForm'
-import * as CreateRespondentsBtnFns from '.'
+import { useUpdatePetitionForm } from '../../../forms/update/UpdatePetitionForm/hooks'
+import * as CreateRespondentsBtnFns from './utils'
 
 // Types
 import { Petition } from '../../../../context/App/types'

@@ -12,9 +12,7 @@ function NextPageBtn({ handleClick, disabled }: NextPageBtnProps) {
       onClick={handleClick}
       className={styles.btn}
       disabled={disabled}>
-        <div className="flex flex-col gap-1 justify-around">
-          <img src={icon} className={'w-4 lg:w-6'} />
-        </div>
+        <img src={icon} className={'w-4 lg:w-6'} />
     </button>
   )
 }
