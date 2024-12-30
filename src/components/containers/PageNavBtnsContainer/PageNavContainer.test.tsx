@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
-import { handlePrevPageBtnClick, handleNextPageBtnClick } from '../RespondentsContainer/hooks'
+import { handlePrevPageBtnClick, handleNextPageBtnClick } from '../RespondentsContainer/utils'
 
 // Types
 import { RespondentsContainerState } from '../RespondentsContainer/types'

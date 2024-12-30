@@ -23,7 +23,7 @@ export const useSetOnNewAttachmentDrop = (setState: UseSetOnNewAttachmentDropPro
       setBlobURL(buffer, type, { setState }) // Set blobURL to component state
       setValue('attachment', acceptedFiles[0], { shouldDirty: true, shouldValidate: true }) // Set attachment to form state
     }
-  }, [setValue])
+  }, [setValue, setState])
 
   return cb
 } 

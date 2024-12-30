@@ -4,10 +4,10 @@ import { authPopup, errorPopup } from '../../../../utils/Toast/Toast'
 
 // Types
 import { UseFormReturn } from 'react-hook-form'
-import { LoginFormUseFormState, OnSubmitProps } from './types'
+import { LoginFormUseFormUseForm, OnSubmitProps } from './types'
 
-export const useLoginForm = (): UseFormReturn<LoginFormUseFormState> => { // LoginForm useForm
-  return useForm<LoginFormUseFormState>({
+export const useLoginForm = (): UseFormReturn<LoginFormUseFormUseForm> => { // LoginForm useForm
+  return useForm<LoginFormUseFormUseForm>({
     defaultValues: {
       email :'',
       password: ''

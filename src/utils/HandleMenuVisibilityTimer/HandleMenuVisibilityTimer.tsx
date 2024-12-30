@@ -8,13 +8,6 @@ function HandleMenuVisibilityTimer({ children }: { children: ReactElement }) {
   const { showMenu, dispatch } = useContext(AppContext)
   const timerRef = useRef<number | null>(null)
 
-  const events = [
-    "mousemove",
-    "mousedown",
-    "click",
-    "scroll"
-  ]
-
   const resetTimer = useCallback(() => {
     if(timerRef.current !== null) {
       clearTimeout(timerRef.current)
@@ -28,6 +21,13 @@ function HandleMenuVisibilityTimer({ children }: { children: ReactElement }) {
   }, [dispatch, showMenu])
 
   useEffect(() => {
+    const events = [
+      "mousemove",
+      "mousedown",
+      "click",
+      "scroll"
+    ]
+    
     resetTimer()
 
     events.forEach(event => {

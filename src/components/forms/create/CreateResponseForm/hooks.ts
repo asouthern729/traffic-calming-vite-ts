@@ -51,7 +51,9 @@ export const useGetAttachment = (uuid: UseGetAttachmentProps['uuid'], options: U
     
     return () => {
       blobPromise?.then(({ blobURL }) => {
-        blobURL && URL.revokeObjectURL(blobURL)
+        if(blobURL) {
+          URL.revokeObjectURL(blobURL)
+        }
       })
     }
   }, [cb])
