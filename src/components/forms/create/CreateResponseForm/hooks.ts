@@ -25,9 +25,9 @@ export const useCreateResponseFormContext = (): { methods: UseFormReturn<CreateR
 export const useGetAttachment = (uuid: UseGetAttachmentProps['uuid'], options: UseGetAttachmentProps['options']): void => { // Download attachment - set blobURL to state
   const { setState } = options
 
-  let blobURL: string | undefined
+  const cb = useCallback(async (): Promise<{ blobURL: string | undefined }> => {
+    let blobURL: string | undefined
 
-  const cb = useCallback(async () => {
     if(uuid) {
       const result = await getAttachment(uuid)
 
@@ -39,18 +39,20 @@ export const useGetAttachment = (uuid: UseGetAttachmentProps['uuid'], options: U
         const blob = new Blob([bufferView], { type })
         blobURL = URL.createObjectURL(blob)
 
-        return setState({ blobURL, type })
+        setState({ blobURL, type })
       }
     }
+
+    return { blobURL }
   }, [uuid, setState])
 
   useEffect(() => {
-    cb()
-
+    const blobPromise = cb()
+    
     return () => {
-      if(blobURL) {
-        URL.revokeObjectURL(blobURL)
-      }
+      blobPromise?.then(({ blobURL }) => {
+        blobURL && URL.revokeObjectURL(blobURL)
+      })
     }
   }, [cb])
 }

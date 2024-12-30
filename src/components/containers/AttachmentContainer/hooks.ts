@@ -7,7 +7,7 @@ import { UpdatePetitionFormUseForm } from '../../forms/update/UpdatePetitionForm
 import { PetitionAttachment } from '../../../context/App/types'
 import { UseSetExistingAttachmentProps } from './types'
 
-export const useSetExistingAttachment = async (setState: UseSetExistingAttachmentProps['setState']): Promise<void> => { // Set existing attachment for UpdatePetitionForm
+export const useSetExistingAttachment = (setState: UseSetExistingAttachmentProps['setState']): void => { // Set existing attachment for UpdatePetitionForm
   const methods = useFormContext<UpdatePetitionFormUseForm>()
 
   let attachment = methods.watch('attachment')
