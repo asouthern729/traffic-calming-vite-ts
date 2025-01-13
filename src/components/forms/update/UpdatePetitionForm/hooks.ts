@@ -61,6 +61,7 @@ const setRespondents = (respondents: Respondent[]): UpdateRespondentFormUseForm[
       ownerZIP: respondent.ownerZIP,
       shortId: respondent.shortId,
       hasResponded: respondent.Response ? true : false,
+      response: respondent.Response?.response || null,
       parentId: respondent.parentId,
       uuid: respondent.uuid
     }

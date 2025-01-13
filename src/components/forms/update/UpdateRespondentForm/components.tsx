@@ -18,12 +18,13 @@ export const HeaderLink = ({ index }: { index: number }) => { // Respondent head
   const { methods } = useUpdateRespondentFormContext()
 
   const hasResponded = methods.getValues(`respondents.${ index }.hasResponded`)
+  const response = methods.getValues(`respondents.${ index }.response`) ? <span className="text-success">Responded In Favor</span> : <span className="text-warning">Responded Against</span>
   const shortId = methods.getValues(`respondents.${ index }.shortId`)
 
   return (
     <div className={`flex gap-4 justify-between pb-1 xl:ml-auto xl:justify-normal ${ hasResponded ? styles.hasResponded : styles.awaitingResponse}`}>
       <Link to={`/respondent?shortId=${ shortId }`} className={`text-secondary text-center hover:text-warning ${ hasResponded ? 'hidden' : null }`}>Respondent ID: {shortId}</Link>
-      <span className="text-center">{hasResponded ? 'Responded' : 'Awaiting Response'}</span>
+      <span className="text-center">{hasResponded ? response : 'Awaiting Response'}</span>
     </div>
   )
 }

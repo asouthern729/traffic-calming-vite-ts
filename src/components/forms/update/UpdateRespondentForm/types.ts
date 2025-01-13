@@ -20,6 +20,7 @@ export interface UpdateRespondentFormUseForm { // UpdateRespondentForm useForm
   ownerZIP: string | null
   readonly shortId: string
   readonly hasResponded: boolean
+  readonly response: boolean | null
   readonly parentId: string
   readonly uuid: string 
   [key: string]: string | boolean | null
