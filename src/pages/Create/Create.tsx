@@ -10,9 +10,9 @@ import CreatePetitionForm from "../../components/forms/create/CreatePetitionForm
 function Create() {
   useValidateUser()
 
-  const navigate = useNavigate()
-
   useHandlePageLoad()
+
+  const navigate = useNavigate()
 
   return (
     <Layout>

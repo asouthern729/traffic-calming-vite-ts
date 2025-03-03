@@ -1,4 +1,4 @@
-import { useHandlePageLoad, useValidateUser } from "../../helpers"
+import { useHandlePageLoad } from "../../helpers"
 import { useGetPetitions } from "./hooks"
 
 // Components
@@ -8,20 +8,17 @@ import PetitionsContainer from "../../components/containers/PetitionsContainer/P
 import ErrorBoundary from "../../components/error/ErrorBoundary/ErrorBoundary"
 
 function Staff() {
-  const validated = useValidateUser()
-
   useHandlePageLoad()
 
-  const { data, isSuccess } = useGetPetitions(validated)
+  const { data, isSuccess } = useGetPetitions()
 
   return (
     <Layout>
-      <HandleLoading
-        isSuccess={isSuccess}>
-          <ErrorBoundary>
-            <PetitionsContainer petitions={data?.data || []} />
-          </ErrorBoundary>
+      <ErrorBoundary>
+        <HandleLoading isSuccess={isSuccess}>
+          <PetitionsContainer petitions={data?.data || []} />
         </HandleLoading>
+      </ErrorBoundary>
     </Layout>
   )
 }

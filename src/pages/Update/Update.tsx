@@ -1,5 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom"
-import { useValidateUser } from "../../helpers"
+import { useNavigate } from "react-router-dom"
 import { useGetPetition } from "./hooks"
 
 // Types
@@ -13,13 +12,7 @@ import UpdatePetitionForm from "../../components/forms/update/UpdatePetitionForm
 import ErrorBoundary from "../../components/error/ErrorBoundary/ErrorBoundary"
 
 function Update() {
-  useValidateUser()
-
-  const pathname = useLocation().pathname.split('/')
-
-  const uuid = pathname[pathname.length - 1]
-
-  const { data, isSuccess } = useGetPetition(uuid)
+  const { data, isSuccess } = useGetPetition()
 
   const navigate = useNavigate()
 
