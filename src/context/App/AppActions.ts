@@ -1,33 +1,32 @@
 import { API_URL as baseUrl } from '../../config'
 
 // Types
-import { CreateResponseFormUseForm } from '../../components/forms/create/CreateResponseForm/types'
-import { GetPetitionsResponse, GetPetitionResponse, CreatePetitionResponse, VerifyRespondentResponse, CreateResponseResponse, SearchByADDRKEYResponse, ServerResponse, PetitionObj, RespondentObj, GetAttachmentResponse } from './types'
+import * as AppTypes from '@/context/App/types'
 
 // Get petitions
-// GET /api/v1/eng/traffic-calming/petition
-export const getPetitions = async (): Promise<GetPetitionsResponse> => {
+// GET /api/v2/eng/traffic-calming/petition
+export const getPetitions = async (): Promise<AppTypes.ServerResponse & { data: AppTypes.PetitionInterface[] }> => {
   const res = await fetch(`${ baseUrl }/petition`)
 
   return res.json()
 }
 
 // Get petition
-// GET /api/v1/eng/traffic-calming/petition/:uuid
-export const getPetition = async (uuid: string): Promise<GetPetitionResponse> => {
+// GET /api/v2/eng/traffic-calming/petition/:uuid
+export const getPetition = async (uuid: string): Promise<AppTypes.ServerResponse & { data: AppTypes.PetitionInterface }> => {
   const res = await fetch(`${ baseUrl }/petition/${ uuid }`)
 
   return await res.json()
 }
 
 // Create petition
-// POST /api/v1/eng/traffic-calming/petition
-export const createPetition = async (formData: PetitionObj): Promise<CreatePetitionResponse> => {
+// POST /api/v2/eng/traffic-calming/petition
+export const createPetition = async (formData: AppTypes.PetitionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PetitionInterface }> => {
+  headers.append('Content-Type', 'application/json')
+  
   const res = await fetch(`${ baseUrl }/petition`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify({ ...formData })
   })
 
@@ -35,13 +34,13 @@ export const createPetition = async (formData: PetitionObj): Promise<CreatePetit
 }
 
 // Update peition
-// PUST /api/v1/eng/traffi-calming/petition/:uuid
-export const updatePetition = async (formData: PetitionObj): Promise<ServerResponse> => {
+// PUST /api/v2/eng/traffi-calming/petition/:uuid
+export const updatePetition = async (formData: AppTypes.PetitionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
+  headers.append('Content-Type', 'application/json')
+
   const res = await fetch(`${ baseUrl }/petition/${ formData.uuid }`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify({ ...formData })
   })
 
@@ -49,23 +48,24 @@ export const updatePetition = async (formData: PetitionObj): Promise<ServerRespo
 }
 
 // Delete petition
-// DELETE /api/v1/eng/traffic-calming/petition/:uuid
-export const deletePetition = async (uuid: string): Promise<ServerResponse> => {
+// DELETE /api/v2/eng/traffic-calming/petition/:uuid
+export const deletePetition = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/petition/${ uuid }`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers
   })
 
   return await res.json()
 }
 
 // Create respondent
-// POST /api/v1/eng/traffic-calming/respondent
-export const createRespondents = async (newRespondents: RespondentObj[]): Promise<ServerResponse> => {
+// POST /api/v2/eng/traffic-calming/respondent
+export const createRespondents = async (newRespondents: AppTypes.RespondentCreateInterface[], headers: Headers): Promise<AppTypes.ServerResponse> => {
+  headers.append('Content-Type', 'application/json')
+
   const res = await fetch(`${ baseUrl }/respondent`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify(newRespondents)
   })
 
@@ -73,13 +73,13 @@ export const createRespondents = async (newRespondents: RespondentObj[]): Promis
 }
 
 // Update respondent
-// PUT /api/v1/eng/traffic-calming/respondent/:uuid
-export const updateRespondent = async (formData: RespondentObj): Promise<ServerResponse> => {
+// PUT /api/v2/eng/traffic-calming/respondent/:uuid
+export const updateRespondent = async (formData: AppTypes.RespondentCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
+  headers.append('Content-Type', 'application/json')
+
   const res = await fetch(`${ baseUrl }/respondent/${ formData.uuid }`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify({ ...formData })
   })
 
@@ -87,31 +87,32 @@ export const updateRespondent = async (formData: RespondentObj): Promise<ServerR
 }
 
 // Delete respondent
-// DELETE /api/v1/eng/traffic-calming/respondent/:uuid
-export const deleteRespondent = async (uuid: string): Promise<ServerResponse> => {
+// DELETE /api/v2/eng/traffic-calming/respondent/:uuid
+export const deleteRespondent = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/respondent/${ uuid }`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers
   })
 
   return res.json()
 }
 
 // Verify respondent
-// GET /api/v1/eng/traffic-calming/respondent/id/:shortId
-export const verifyRespondent = async (shortId: string): Promise<VerifyRespondentResponse> => {
+// GET /api/v2/eng/traffic-calming/respondent/id/:shortId
+export const verifyRespondent = async (shortId: string): Promise<AppTypes.ServerResponse & { data?: AppTypes.RespondentInterface }> => {
   const res = await fetch(`${ baseUrl }/respondent/id/${ shortId }`)
 
   return res.json()
 }
 
 // Search addresses by ADDRKEY
-// POST /api/v1/eng/traffic-calming/respondent/search
-export const searchByADDRKEY = async (addrkeys: string[]): Promise<SearchByADDRKEYResponse> => {
+// POST /api/v2/eng/traffic-calming/respondent/search
+export const searchByADDRKEY = async (addrkeys: string[], headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.InforAddressInterface[] }> => {
+  headers.append('Content-Type', 'application/json')
+
   const res = await fetch(`${ baseUrl }/respondent/search`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers,
     body: JSON.stringify({ addrkeys })
   })
 
@@ -119,8 +120,8 @@ export const searchByADDRKEY = async (addrkeys: string[]): Promise<SearchByADDRK
 }
 
 // Create response
-// POST /api/v1/eng/traffic-calming/response
-export const createResponse = async (formData: CreateResponseFormUseForm): Promise<CreateResponseResponse> => {
+// POST /api/v2/eng/traffic-calming/response
+export const createResponse = async (formData: AppTypes.ResponseCreateInterface): Promise<AppTypes.ServerResponse & { data: AppTypes.ResponseInterface }> => {
   const res = await fetch(`${ baseUrl }/response`, {
     method: 'POST',
     headers: {
@@ -133,7 +134,7 @@ export const createResponse = async (formData: CreateResponseFormUseForm): Promi
 }
 
 // Download template
-// POST /api/v1/eng/traffic-calming/respondent/template
+// POST /api/v2/eng/traffic-calming/respondent/template
 export const downloadRespondentTemplate = async (): Promise<void> => {
   const res = await fetch(`${ baseUrl }/respondent/template`, {
     method: 'POST'
@@ -155,10 +156,11 @@ export const downloadRespondentTemplate = async (): Promise<void> => {
 }
 
 // Create attachment
-// POST /api/v1/eng/traffic-calming/attachment
-export const createAttachment = async (formData: FormData): Promise<ServerResponse> => {
+// POST /api/v2/eng/traffic-calming/attachment
+export const createAttachment = async (formData: FormData, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/attachment`, {
     method: 'POST',
+    headers,
     body: formData
   })
 
@@ -167,17 +169,19 @@ export const createAttachment = async (formData: FormData): Promise<ServerRespon
 
 // Delete attachment
 // DELETE /api/v2/dept-purchasing/attachment/:uuid
-export const deleteAttachment = async (uuid: string): Promise<ServerResponse> => {
+export const deleteAttachment = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/attachment/${ uuid }`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers
   })
 
   return await res.json()
 }
 
 // Download attachment
-// GET /api/v1/eng/traffic-calming/attachment/:uuid
-export const getAttachment = async (uuid: string): Promise<GetAttachmentResponse> => {
+// GET /api/v2/eng/traffic-calming/attachment/:uuid
+export const getAttachment = async (uuid: string): Promise<{ success: boolean, data: {
+  parentId: string, data: { data: ArrayBuffer, type: string }, fileType: 'pdf' | 'jpeg' } }> => {
   const res = await fetch(`${ baseUrl }/attachment/${ uuid }`)
 
   return await res.json()

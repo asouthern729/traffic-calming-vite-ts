@@ -2,12 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: var(--neutral);
+  background-color: var(--color-neutral);
   padding: 24px 0 12px 0;
 }
 
 .label {
-  color: var(--neutralContent);
+  color: var(--color-neutral-content);
   font-family: 'Jura', sans-serif;
   font-weight: 600;
   text-align: center;

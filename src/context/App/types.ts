@@ -1,103 +1,20 @@
-// Types
-import { Dispatch } from "react"
-
-export interface AppContextObj { // App ctx
-  dispatch: Dispatch<AppAction>
-  activePage: Page
-  searchingRespondents: boolean
-  searchValue: string
-  showMenu: boolean
-}
-
-export interface AppState {
-  activePage: Page
-  searchingRespondents: boolean
-  searchValue: string
-  showMenu: boolean
-}
-
-export interface AppReducerProps { // AppReducer props
-  state: AppState
-  action: AppAction
-}
-
-export interface ServerResponse { // Server response object
-  success: boolean
-  msg?: string
-}
-
-export interface GetPetitionsResponse extends ServerResponse {
-  data: Petition[]
-}
-
-export interface GetPetitionResponse extends ServerResponse {
-  data: Petition
-}
-
-export interface CreatePetitionResponse extends ServerResponse {
-  data: {
-    petitionId: string
-    description: string
-    startDate: string
-    endDate: string
-  } & BaseObj
-}
-
-export interface VerifyRespondentResponse extends ServerResponse {
-  data: Respondent
-}
-
-export interface CreateResponseResponse extends ServerResponse {
-  data: Response
-}
-
-export interface SearchByADDRKEYResponse extends ServerResponse {
-  data: RespondentObj[]
-}
-
-export interface GetAttachmentResponse extends ServerResponse { 
-  data: {
-    data: {
-      type: string
-      data: ArrayBuffer
-    } 
-  } & PetitionAttachment
-}
-
-export interface PetitionObj {
-  description: string
-  startDate: string
-  endDate: string
-  uuid?: string
-}
-
-export interface RespondentObj {
-  name: string | null
-  address: string
-  ownerAddress: string | null
-  ownerCity: string | null
-  ownerState: string | null
-  ownerZIP: string | null
-  parentId?: string
-  uuid?: string
-}
-
-export interface ResponseObj {
-  response: boolean
-  parentId: string
-  uuid?: string
-}
-
-export interface Petition extends BaseObj {
+export interface PetitionInterface extends BaseInterface {
   petitionId: string
   description: string
   startDate: string
   endDate: string
-  Respondents: Respondent[]
-  PetitionAttachment: PetitionAttachment
+  Respondents?: RespondentInterface[]
+  Attachment?: AttachmentInterface
 }
 
-export interface Respondent extends BaseObj {
+export interface PetitionCreateInterface extends Omit<PetitionInterface, 'Respondents' | 'Attachment' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _deleted?: boolean
+  Respondents?: RespondentCreateInterface[]
+  Attachment?: File | AttachmentCreateInterface | null
+  uuid?: string
+}
+
+export interface RespondentInterface extends BaseInterface {
   name: string | null
   address: string
   ownerAddress: string | null
@@ -106,34 +23,54 @@ export interface Respondent extends BaseObj {
   ownerZIP: string | null
   shortId: string
   parentId: string
-  Petition: Petition
-  Response: Response
+  Petition?: PetitionInterface
+  Response?: ResponseInterface
 }
 
-export interface Response extends BaseObj {
+export interface RespondentCreateInterface extends Omit<RespondentInterface, 'uuid' | 'shortId' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _deleted?: boolean
+  shortId?: string
+  hasResponded?: boolean
+  uuid?: string
+}
+
+export interface ResponseInterface extends BaseInterface {
   response: boolean
   parentId: string
-  uuid: string
+  shortId: string
 }
 
-export interface PetitionAttachment extends BaseObj {
+export interface ResponseCreateInterface extends Omit<ResponseInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _deleted?: boolean
+  uuid?: string
+}
+
+export interface AttachmentInterface extends BaseInterface {
   parentId: string
   fileType: 'pdf' | 'jpeg'
 }
 
-export type AppAction =
-  | { type: 'SET_SEARCH_VALUE', payload: string }
-  | { type: 'OPEN_CLOSE_SHOW_MENU', payload: boolean }
-  | { type: 'RESET_CTX', payload: undefined }
-  | { type: 'SET_ACTIVE_PAGE', payload: Page }
-  | { type: 'TOGGLE_SEARCHING_RESPONDENTS', payload: undefined }
+export interface AttachmentCreateInterface extends Omit<AttachmentInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _deleted?: boolean
+  uuid?: string
+}
 
-export type Page = 
-  | "Public"
-  | "Create Petition"
-  | "Manage Petitions"
+export interface InforAddressInterface {
+  name: string | null
+  address: string
+  ownerAddress: string | null
+  ownerCity: string | null
+  ownerState: string | null
+  ownerZIP: string | null
+  addrkey: string
+}
 
-interface BaseObj {
+export interface ServerResponse { // Server response object
+  success: boolean
+  msg?: string
+}
+
+interface BaseInterface {
   uuid: string
   createdBy: string
   createdAt: string

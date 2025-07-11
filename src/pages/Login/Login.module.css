@@ -1,19 +1,10 @@
-@import '../../animations.css';
-
 .container {
   display: flex;
-  flex-direction: column;
   width: fit-content;
   height: fit-content;
-  background-color: var(--neutralContent);
-  margin: auto;
-  width: 90%;
+  margin: 40px auto;
+  background-color: var(--color-neutral-content);
   border-radius: 14px;
   overflow: hidden;
   animation: 250ms fade-in linear;
-
-  @media (min-width: 1025px) { /* Laptop+ */ 
-    margin: 40px auto;
-    width: fit-content;
-  }
 }

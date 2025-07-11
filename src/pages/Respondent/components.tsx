@@ -1,34 +1,43 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 import { errorPopup } from "../../utils/Toast/Toast"
 
 // Types
-import { Respondent } from "../../context/App/types"
+import * as AppTypes from '@/context/App/types'
 
 // Components
-import ClosedPetition from "../../components/petition/ClosedPetition/ClosedPetition"
-import CreateResponseForm from "../../components/forms/create/CreateResponseForm/CreateResponseForm"
+import ClosedPetition from "@/components/petition/ClosedPetition"
+import CreateResponseForm from "@/components/public/forms/create/CreateResponseForm"
 
-export const VerifyRespondent = ({ respondent, error }: { respondent: Respondent | undefined, error: string | undefined }) => { // Verify petition respondent
+export const VerifyRespondent = ({ respondent, error }: { respondent: AppTypes.RespondentInterface | undefined, error: string | undefined }) => { // Verify petition respondent
   const navigate = useNavigate()
 
-  if(!respondent && error) { // Handle !respondent / respondent cannot be verified / respondent has already responded
-    navigate('/')
+  if(!respondent) { // Handle !respondent / respondent cannot be verified / respondent has already responded
+    navigate('/public')
     errorPopup(error)
+    return 
   }
 
-  const startDate = new Date(respondent?.Petition.startDate as string)
-  const endDate = new Date(respondent?.Petition.endDate as string)
+  const startDate = new Date(respondent?.Petition?.startDate as string)
+  const endDate = new Date(respondent?.Petition?.endDate as string)
   const today = new Date()
 
   if(startDate < today && endDate < today) { // Closed petition
-    return <ClosedPetition label={'Petititon is now closed'} />
+    return (
+      <ClosedPetition>
+        Petititon is now closed
+      </ClosedPetition>
+    ) 
   }
 
   if(startDate > today) { // Future petition
-    return <ClosedPetition label={'Petition is not yet open'} />
+    return (
+      <ClosedPetition>
+        Petition is not yet open
+      </ClosedPetition>
+    )
   }
 
-  if(respondent) {
-    return <CreateResponseForm respondent={respondent} />
-  } else return null
+  return (
+    <CreateResponseForm respondent={respondent} />
+  )
 }

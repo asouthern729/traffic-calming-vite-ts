@@ -1,20 +1,12 @@
 import { useQuery } from "react-query"
-import { useLocation } from "react-router-dom"
-import { getPetition } from "../../context/App/AppActions"
-import { useValidateUser, useEnableQuery } from "../../helpers"
+import { useParams } from "react-router"
+import * as AppActions from '@/context/App/AppActions'
+import { useEnableQuery } from "@/helpers/hooks"
 
-// Types
-import { UseQueryResult } from "react-query"
-import { GetPetitionResponse } from "../../context/App/types"
+export const useGetPetition = () => { // Get petition
+  const { enabled, token } = useEnableQuery()
 
-export const useGetPetition = (): UseQueryResult<GetPetitionResponse> => { // Get petition
-  const { isAuthenticated, isLoading } = useValidateUser()
-
-  const enabled = useEnableQuery(isAuthenticated, isLoading)
-
-  const pathname = useLocation().pathname.split('/')
+  const { uuid } = useParams<{ uuid: string }>() 
   
-  const uuid = pathname[pathname.length - 1]
-  
-  return useQuery(['getPetition', uuid], () => getPetition(uuid), { enabled: enabled && !!uuid })
+  return useQuery(['getPetition', uuid], () => AppActions.getPetition(uuid as string), { enabled: enabled && !!token })
 }
