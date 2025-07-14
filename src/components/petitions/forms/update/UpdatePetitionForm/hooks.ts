@@ -36,6 +36,8 @@ export const useOnCancelBtnClick = () => {
 export const useHandleDeleteBtn = (uuid: string) => {
   const [state, setState] = useState<{ active: boolean }>({ active: false })
 
+  const navigate = useNavigate()
+
   const queryClient = useQueryClient()
 
   const { enabled, token } = useEnableQuery()
@@ -53,8 +55,9 @@ export const useHandleDeleteBtn = (uuid: string) => {
     if(result.success) {
       savedPopup(result.msg)
       queryClient.invalidateQueries('getPetitions')
+      navigate('/petitions')
     } else errorPopup(result.msg)
-  }, [state.active, enabled, token, queryClient])
+  }, [state.active, enabled, token, navigate, queryClient])
 
   const label = !state.active ? 'Delete Petition' : 'Confirm Delete'
 
