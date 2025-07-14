@@ -1,11 +1,11 @@
-import { useRedirect } from '../Redirect/hooks'
+import { useAuthRedirect } from '@/helpers/hooks'
 
 // Components
 import Layout from '@/components/layout/Layout'
 import LoginForm from '@/components/login/forms/LoginForm'
 
 function Login() {
-  useRedirect('/projects')
+  useAuthRedirect()
 
   return (
     <Layout>

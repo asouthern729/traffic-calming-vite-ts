@@ -113,3 +113,46 @@ export const useRedirectAfterLogin = () => {
     }
   }, [activeAccount, inProgress])
 }
+
+export const useActiveAccount = () => {
+  const [state, setState] = useState<{ authenticated: boolean }>({ authenticated: false })
+  const { instance, inProgress } = useMsal()
+
+  useEffect(() => {
+    if(inProgress === 'none') {
+      const activeAccount = instance.getActiveAccount()
+      setState({ authenticated: !!activeAccount })
+    }
+  }, [instance, inProgress])
+
+  return state.authenticated
+}
+
+export const useAuthRedirect = () => {
+  const { instance, inProgress } = useMsal()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (inProgress === 'none') {
+      const activeAccount = instance.getActiveAccount()
+      if (activeAccount) {
+        navigate('/petitions')
+      }
+    }
+  }, [inProgress, instance, navigate])
+}
+
+export const useUnauthRedirect = () => {
+  const { instance, inProgress } = useMsal()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (inProgress === 'none') {
+      const activeAccount = instance.getActiveAccount()
+      
+      if(!activeAccount) {
+        navigate('/')
+      }
+    }
+  }, [inProgress, instance, navigate])
+}

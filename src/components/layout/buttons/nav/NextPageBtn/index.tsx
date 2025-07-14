@@ -1,5 +1,4 @@
 import icon from '@/assets/icons/next/next.svg'
-import styles from './NextPageBtn.module.css'
 
 type NextPageBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>, disabled: boolean }
 
@@ -10,9 +9,9 @@ function NextPageBtn(props: NextPageBtnProps) {
       data-testid="next-page-btn"
       type="button"
       onClick={props.onClick}
-      className={styles.btn}
+      className="btn btn-neutral btn-square hover:cursor-pointer"
       disabled={props.disabled}>
-        <img src={icon} className={'w-4 lg:w-6'} />
+        <img src={icon} className="w-4 lg:w-6" />
     </button>
   )
 }

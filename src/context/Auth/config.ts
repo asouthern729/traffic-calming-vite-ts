@@ -4,7 +4,7 @@ export const msalConfig = {
     auth: {
         clientId: '38ba5f3a-8776-412e-8aaa-4d16473bcb7e',
         authority: 'https://login.microsoftonline.com/f6644f52-f834-4a2f-a433-e6bc40d7c17f/',
-        redirectUri: 'https://istest.franklintn.gov/traffic-calming',
+        redirectUri: 'https://apps.franklintn.gov/traffic-calming',
         postLogoutRedirectUri: '/',
         navigateToLoginRequestUrl: false
     },
@@ -38,5 +38,5 @@ export const msalConfig = {
 
 export const loginRequest = {
     scopes: ["openid", "profile"],
-    redirectUri: "https://istest.franklintn.gov/traffic-calming"
+    redirectUri: "https://apps.franklintn.gov/traffic-calming"
 };

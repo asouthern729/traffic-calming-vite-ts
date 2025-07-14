@@ -1,3 +1,4 @@
+import { useUnauthRedirect } from "@/helpers/hooks"
 import { PetitionProvider } from "@/components/petitions/context"
 import { useGetPetition } from "./hooks"
 
@@ -12,6 +13,8 @@ import UpdatePetitionForm from "@/components/petitions/forms/update/UpdatePetiti
 import ErrorBoundary from "../../components/error/ErrorBoundary"
 
 function Update() {
+  useUnauthRedirect()
+
   const { data, isSuccess } = useGetPetition()
 
   return ( 

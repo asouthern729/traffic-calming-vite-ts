@@ -1,4 +1,5 @@
 import { PetitionProvider } from "@/components/petitions/context"
+import { useUnauthRedirect } from '@/helpers/hooks'
 import { useGetPetitions } from "./hooks"
 
 // Components
@@ -8,6 +9,8 @@ import PetitionsContainer from "../../components/petitions/containers/PetitionsC
 import ErrorBoundary from "@/components/error/ErrorBoundary"
 
 function Petitions() {
+  useUnauthRedirect()
+
   const { data, isSuccess } = useGetPetitions()
 
   return (

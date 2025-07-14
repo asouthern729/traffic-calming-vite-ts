@@ -1,3 +1,4 @@
+import { useUnauthRedirect } from "@/helpers/hooks"
 import { PetitionProvider } from "@/components/petitions/context"
 
 // Components
@@ -7,6 +8,7 @@ import FormContainer from "@/components/form-elements/FormContainer"
 import CreatePetitionForm from "@/components/petitions/forms/create/CreatePetitionForm"
 
 function Create() {
+  useUnauthRedirect()
 
   return (
     <Layout>

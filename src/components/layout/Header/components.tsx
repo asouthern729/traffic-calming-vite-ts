@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { useLocation, Link } from "react-router"
-import { useMsal } from "@azure/msal-react"
 import HeaderCtx from "./context"
 import { APP_TITLE } from '../../../config'
+import { useActiveAccount } from "@/helpers/hooks"
 import useHandleLogoutRedirect from "@/context/Auth/hooks/useHandleLogoutRedirect"
 import { useSetHeaderLinkHref, useHandleTitleVisibility } from './hooks'
 
@@ -11,20 +11,9 @@ import inactiveMenuIcon from '@/assets/icons/menu/menu-light.svg'
 import activeMenuIcon from '@/assets/icons/menu/menu.svg'
 
 export const Title = () => {
-  const pathname = useLocation().pathname
-
   const visible = useHandleTitleVisibility()
 
   if(!visible) return null
-
-  if(pathname === '/') { // Login page
-    return (
-      <div className="flex flex-col text-primary-content items-start w-fit">
-        <h1 className="text-lg font-bold whitespace-nowrap lg:text-2xl">City of Franklin</h1>
-        <span className="text-sm ml-6 w-fit lg:text-xl lg:whitespace-nowrap">{APP_TITLE}</span>
-      </div>
-    )
-  }
 
   return (
     <Link to={'/public'} className="flex flex-col text-primary-content items-start w-fit">
@@ -53,27 +42,36 @@ export const BtnsMenu = ({ children }: { children: React.ReactNode }) => {
 export const Buttons = () => {
   const { expanded } = useContext(HeaderCtx)
 
-  const pathname = useLocation().pathname
-
-  const { instance } = useMsal()
-  const activeAccount = instance.getActiveAccount()
-
-  // @TODO remove comment for prod
-  // if(!activeAccount) return null 
-
-  if(pathname === '/' || !expanded) return null // Hide on login page || !expanded
+  if(!expanded) return null
 
   return (
     <div className="flex flex-col items-center gap-4 mr-auto md:flex-row md:ml-auto">
       <ManagePetitionsBtn />
       <CreateBtn />
+      <LoginPageLink />
       <LogoutBtn />
     </div>
   )
 }
 
+const LoginPageLink = () => { // Link to login page
+  const activeAccount = useActiveAccount()
+
+  const pathname = useLocation().pathname
+
+  if(activeAccount || pathname === '/') return null
+
+  return (
+    <Link to={'/'} className="btn btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none">Engineering Dept Login</Link>
+  )
+}
+
 const ManagePetitionsBtn = () => {
+  const activeAccount = useActiveAccount()
+
   const { href, label } = useSetHeaderLinkHref()
+
+  if(!activeAccount) return null
 
   return (
     <Link 
@@ -85,9 +83,11 @@ const ManagePetitionsBtn = () => {
 }
 
 const CreateBtn = () => {
+  const activeAccount = useActiveAccount()
+
   const pathname = useLocation().pathname
 
-  if(pathname === '/petitions/create') return null
+  if(!activeAccount || pathname === '/petitions/create') return null
 
   return (
     <Link 
@@ -99,7 +99,11 @@ const CreateBtn = () => {
 }
 
 const LogoutBtn = () => { // Logout button
+  const activeAccount = useActiveAccount()
+
   const handleLogoutRedirect = useHandleLogoutRedirect()
+
+  if(!activeAccount) return null
 
   return (
     <button 

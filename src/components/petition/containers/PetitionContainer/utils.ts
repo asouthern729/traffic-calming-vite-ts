@@ -1,7 +1,8 @@
-import { SetVoteTotalsProps, Votes } from "./types"
+// Types
+import * as AppTypes from '@/context/App/types'
 
-export const setVoteTotals = (respondents: SetVoteTotalsProps['respondents']): Votes => { // Return votes object
-  const votes: Votes = {
+export const setVoteTotals = (respondents: AppTypes.RespondentInterface[]) => { // Return votes object
+  const votes = {
     yes: 0,
     no: 0,
     noResponse: 0
